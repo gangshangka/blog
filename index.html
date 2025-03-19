@@ -98,114 +98,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/03/17/aa/" data-id="cm8fndp580002xlptfwi84ypm" data-title="文章标题" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-album" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/03/17/album/" class="article-date">
-  <time class="dt-published" datetime="2025-03-17T02:00:00.000Z" itemprop="datePublished">2025-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/03/17/album/">QT电子相册题目</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="1-请介绍一下这个项目的核心功能是什么？"><a href="#1-请介绍一下这个项目的核心功能是什么？" class="headerlink" title="1. 请介绍一下这个项目的核心功能是什么？"></a>1. <strong>请介绍一下这个项目的核心功能是什么？</strong></h3><p><strong>解答：</strong><br>该项目是一个基于Qt的桌面应用，主要用于项目管理和图片浏览。核心功能包括：</p>
-<ul>
-<li>项目目录树管理，支持项目的创建、删除与路径验证。</li>
-<li>文件夹导入功能，能够通过选择文件夹并导入其内容到项目目录。</li>
-<li>图片展示与切换，用户可以通过双击目录树中的图片文件进行展示，并通过前进和后退按钮切换图片。</li>
-<li>使用 <code>QWizard</code> 向导引导用户创建新项目，并进行路径和字段验证。</li>
-</ul>
-<h3 id="2-你在项目中使用了哪些Qt控件？"><a href="#2-你在项目中使用了哪些Qt控件？" class="headerlink" title="2. 你在项目中使用了哪些Qt控件？"></a>2. <strong>你在项目中使用了哪些Qt控件？</strong></h3><p><strong>解答：</strong><br>在这个项目中，我使用了多个Qt控件，包括：</p>
-<ul>
-<li><code>QTreeWidget</code> 和 <code>QTreeWidgetItem</code> 用于实现项目目录树。</li>
-<li><code>QPushButton</code> 和自定义的 <code>PicButton</code> 用于实现按钮的动态效果（如悬停、点击等）。</li>
-<li><code>QWizard</code> 用于设计项目创建向导，提供步骤式输入。</li>
-<li><code>QFileDialog</code> 用于选择文件夹导入，支持目录选择。</li>
-<li><code>QProgressDialog</code> 显示导入进度。</li>
-<li><code>QGraphicsOpacityEffect</code> 和 <code>QPropertyAnimation</code> 用于实现按钮的渐隐效果。</li>
-</ul>
-<h3 id="3-你如何确保导入文件夹的操作不会阻塞UI线程？"><a href="#3-你如何确保导入文件夹的操作不会阻塞UI线程？" class="headerlink" title="3. 你如何确保导入文件夹的操作不会阻塞UI线程？"></a>3. <strong>你如何确保导入文件夹的操作不会阻塞UI线程？</strong></h3><p><strong>解答：</strong><br>为了避免文件导入过程阻塞UI线程，我将文件导入操作放入了一个独立的线程中。通过继承 <code>QThread</code> 创建 <code>ProTreeThread</code>，在该线程中执行文件复制，并使用 <code>QProgressDialog</code> 来显示导入进度。这样，UI线程能够继续响应用户操作，确保应用的流畅性。</p>
-<h3 id="4-为什么选择使用-QWizard-作为项目创建的向导？"><a href="#4-为什么选择使用-QWizard-作为项目创建的向导？" class="headerlink" title="4. 为什么选择使用 QWizard 作为项目创建的向导？"></a>4. <strong>为什么选择使用 <code>QWizard</code> 作为项目创建的向导？</strong></h3><p><strong>解答：</strong><br><code>QWizard</code> 提供了一个分步式的界面，特别适合需要逐步配置的场景，如项目创建。在这个项目中，<code>QWizard</code> 可以引导用户逐步输入项目名称和路径，并进行实时的验证。使用 <code>QWizard</code> 可以有效提高用户体验，确保输入的合法性。</p>
-<h3 id="5-如何处理项目目录树中的重复项目名？"><a href="#5-如何处理项目目录树中的重复项目名？" class="headerlink" title="5. 如何处理项目目录树中的重复项目名？"></a>5. <strong>如何处理项目目录树中的重复项目名？</strong></h3><p><strong>解答：</strong><br>在添加项目到目录树时，我使用了 <code>QSet</code> 来存储已存在的项目路径，并进行查重。如果新项目的路径已经存在于 <code>QSet</code> 中，则拒绝添加，避免了重复项目名的问题。</p>
-<h3 id="6-你如何处理文件夹导入的进度显示？"><a href="#6-你如何处理文件夹导入的进度显示？" class="headerlink" title="6. 你如何处理文件夹导入的进度显示？"></a>6. <strong>你如何处理文件夹导入的进度显示？</strong></h3><p><strong>解答：</strong><br>在文件夹导入过程中，我创建了一个多线程任务来执行文件复制操作，并使用 <code>QProgressDialog</code> 来显示进度。当文件导入开始时，<code>QProgressDialog</code> 会展示文件复制的进度条，用户可以实时看到进度，并在导入过程中取消操作。线程完成后，进度条会自动更新，确保用户了解操作的实时状态。</p>
-<h3 id="7-你是如何优化界面交互的？"><a href="#7-你是如何优化界面交互的？" class="headerlink" title="7. 你是如何优化界面交互的？"></a>7. <strong>你是如何优化界面交互的？</strong></h3><p><strong>解答：</strong><br>为了提升界面交互体验，我使用了动态效果和美化：</p>
-<ul>
-<li>使用 <code>QPropertyAnimation</code> 实现按钮的渐隐效果，当鼠标进入或离开按钮区域时，按钮的透明度会平滑变化。</li>
-<li>在 <code>QPushButton</code> 上自定义了鼠标悬停、点击效果，使用 <code>QPixmap</code> 加载不同的图标，增加按钮的互动性。</li>
-<li>通过 <code>QSS</code> 自定义了窗口和控件的样式，提升了应用的视觉效果。</li>
-</ul>
-<hr>
-<hr>
-<h3 id="1-QSS是什么，你是在哪里应用的，有什么效果？"><a href="#1-QSS是什么，你是在哪里应用的，有什么效果？" class="headerlink" title="1. QSS是什么，你是在哪里应用的，有什么效果？"></a>1. <strong>QSS是什么，你是在哪里应用的，有什么效果？</strong></h3><p><strong>解答：</strong><br><code>QSS</code>（Qt样式表，Qt Style Sheets）是Qt提供的一种类似于CSS的样式表，用于控制应用程序界面中控件的外观和布局。通过 <code>QSS</code>，我们可以对Qt的各类控件（如按钮、菜单、窗口、标签等）进行样式定制，包括颜色、字体、边框、背景等。</p>
-<p>在这个项目中，我使用 <code>QSS</code> 自定义了以下内容：</p>
-<ul>
-<li><strong>主窗口和菜单栏样式</strong>：设置了背景色、字体颜色等，确保界面统一且符合设计需求。</li>
-<li><strong>按钮样式</strong>：定义了按钮的边框、背景色和鼠标悬停&#x2F;点击效果，增强了用户体验。</li>
-<li><strong>菜单选中效果</strong>：为菜单项设置了选中时的高亮效果，提升了界面的交互性。</li>
-</ul>
-<p>通过 <code>QSS</code>，我们能够快速而有效地调整界面外观，使得界面更加美观且具有现代感。</p>
-<hr>
-<h3 id="2-项目目录树是怎么实现的？"><a href="#2-项目目录树是怎么实现的？" class="headerlink" title="2. 项目目录树是怎么实现的？"></a>2. <strong>项目目录树是怎么实现的？</strong></h3><p><strong>解答：</strong><br>项目目录树是通过 <code>QTreeWidget</code> 控件实现的。为了适应项目需求，我对 <code>QTreeWidgetItem</code> 进行了自定义，创建了一个名为 <code>ProTreeItem</code> 的类，用于表示每个目录树的节点。该类继承自 <code>QTreeWidgetItem</code>，并添加了自定义属性（如项目路径、名称、根节点、前后节点等）和方法。</p>
-<p>在具体实现中：</p>
-<ul>
-<li>使用 <code>QTreeWidget</code> 来显示整个项目目录树。</li>
-<li><code>ProTreeItem</code> 用于表示树中的每个节点，节点可以包含文件夹或文件，并且每个节点都包含路径、名称等信息。</li>
-<li>通过 <code>QSet</code> 存储已加载的路径，避免了重复加载同一个项目。</li>
-<li>右键点击树项时，弹出了导入文件夹、设置活动项目等操作。</li>
-</ul>
-<p>这种设计确保了项目目录树的层级结构清晰，且可以灵活管理项目中的文件和文件夹。</p>
-<hr>
-<h3 id="3-QWizard-怎样设计的动态字段验证？"><a href="#3-QWizard-怎样设计的动态字段验证？" class="headerlink" title="3. QWizard 怎样设计的动态字段验证？"></a>3. <strong>QWizard 怎样设计的动态字段验证？</strong></h3><p><strong>解答：</strong><br>在项目创建的向导中，我使用了 <code>QWizard</code> 来引导用户逐步填写项目名称和路径。为了确保用户输入的内容有效，我对向导中的字段（如 <code>QLineEdit</code> 控件）进行了动态验证。</p>
-<p>具体步骤：</p>
-<ol>
-<li><strong>字段注册</strong>：通过 <code>registerField</code> 将 <code>QLineEdit</code> 控件与 <code>QWizard</code> 的字段绑定，确保字段与向导的状态关联。</li>
-<li><strong>字段验证</strong>：通过 <code>textEdited</code> 信号监听输入内容的变化，动态触发验证。每次用户编辑字段内容时，都会检查输入的有效性。</li>
-<li><strong>验证逻辑</strong>：<ul>
-<li>在 <code>ProSetPage</code> 页面的 <code>isComplete</code> 函数中，进行路径合法性检查，确保用户输入的项目路径存在且有效。</li>
-<li>如果字段未填写或者路径无效，<code>isComplete</code> 返回 <code>false</code>，禁止用户继续操作。</li>
-</ul>
-</li>
-</ol>
-<p>这种动态验证机制保证了用户输入的合法性，并通过实时反馈提高了用户体验。</p>
-<hr>
-<h3 id="4-怎样使用多线程优化文件导入，显示导入进度？"><a href="#4-怎样使用多线程优化文件导入，显示导入进度？" class="headerlink" title="4. 怎样使用多线程优化文件导入，显示导入进度？"></a>4. <strong>怎样使用多线程优化文件导入，显示导入进度？</strong></h3><p><strong>解答：</strong><br>为了避免文件导入操作阻塞UI线程，我使用了多线程来异步处理文件复制操作。具体实现如下：</p>
-<ol>
-<li><strong>创建自定义线程</strong>：我继承了 <code>QThread</code> 类，创建了 <code>ProTreeThread</code> 线程类来处理文件导入任务。线程中执行的是文件复制和目录创建的逻辑。</li>
-<li><strong>进度显示</strong>：使用 <code>QProgressDialog</code> 来显示文件导入的进度。在多线程中，我通过发出信号（如 <code>SigUpdateProgress</code>）来更新进度条，使用户实时看到导入进度。</li>
-<li><strong>线程控制</strong>：线程执行文件导入时，如果用户取消操作，通过设置 <code>bstop</code> 标志来终止线程，确保可以安全退出。</li>
-<li><strong>UI线程与子线程的通信</strong>：在子线程中通过信号与主线程通信，当文件复制完成时发出 <code>SigFinishProgress</code> 信号，通知进度对话框完成导入操作。</li>
-</ol>
-<p>通过多线程和进度条的配合，文件导入操作得到了显著优化，避免了界面卡顿，并提升了用户的使用体验。</p>
-<hr>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/03/17/album/" data-id="cm8fndp5c0003xlpt23s1h972" data-title="QT电子相册题目" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/03/17/aa/" data-id="cm8fokd1r0001rppt18k2ayh5" data-title="文章标题" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -312,107 +205,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/03/17/task1/" data-id="cm8fndp5i0005xlptfcll772j" data-title="FreeRTOS中的任务实现" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-VS2022&amp;MSVC2019" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/03/16/VS2022&MSVC2019/" class="article-date">
-  <time class="dt-published" datetime="2025-03-16T02:00:00.000Z" itemprop="datePublished">2025-03-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/03/16/VS2022&MSVC2019/">VS2022不支持MSVC2019</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="VS2022不支持MSVC2019"><a href="#VS2022不支持MSVC2019" class="headerlink" title="VS2022不支持MSVC2019"></a>VS2022不支持MSVC2019</h1><p>在Visual Studio Installer中找到 <strong>修改 &gt; 单个组件</strong> 的步骤如下：</p>
-<hr>
-<h3 id="详细步骤说明"><a href="#详细步骤说明" class="headerlink" title="详细步骤说明"></a><strong>详细步骤说明</strong></h3><ol>
-<li><p><strong>打开Visual Studio Installer</strong>：</p>
-<ul>
-<li>在Windows搜索栏中输入 <strong>Visual Studio Installer</strong>，点击打开。<br><img src="https://placehold.co/600x400?text=Search+Visual+Studio+Installer" alt="打开Visual Studio Installer"></li>
-</ul>
-</li>
-<li><p><strong>选择要修改的VS2022版本</strong>：</p>
-<ul>
-<li>在安装器中找到已安装的 <strong>Visual Studio 2022</strong>，点击右侧的 <strong>修改</strong> 按钮。<br><img src="https://placehold.co/600x400?text=Click+Modify+Button" alt="点击“修改”按钮"></li>
-</ul>
-</li>
-<li><p><strong>切换到“单个组件”标签页</strong>：</p>
-<ul>
-<li>在弹出的界面中，顶部有多个标签页（工作负载、单个组件、语言包等），点击 <strong>单个组件</strong>。<br><img src="https://placehold.co/600x400?text=Switch+to+Individual+Components+Tab" alt="切换到“单个组件”标签页"></li>
-</ul>
-</li>
-<li><p><strong>搜索并勾选MSVC v142工具链</strong>：</p>
-<ul>
-<li>在搜索框中输入 <strong>v142</strong>，找到以下组件并勾选：<ul>
-<li><strong>MSVC v142 - VS2019 C++ x64&#x2F;x86生成工具（最新）</strong><br>（确保勾选的是针对VS2019的v142版本，而非v143）。<br><img src="https://placehold.co/600x400?text=Search+v142+Component" alt="搜索v142组件"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>完成修改并安装</strong>：</p>
-<ul>
-<li>点击右下角的 <strong>修改</strong> 按钮，等待安装完成。<br><img src="https://placehold.co/600x400?text=Click+Modify+to+Install" alt="点击“修改”按钮安装"></li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a><strong>注意事项</strong></h3><ol>
-<li><p><strong>权限问题</strong>：</p>
-<ul>
-<li>如果提示需要管理员权限，请以管理员身份运行Visual Studio Installer。</li>
-</ul>
-</li>
-<li><p><strong>组件名称可能随版本变化</strong>：</p>
-<ul>
-<li>如果搜索不到 <code>v142</code>，尝试关键词 <code>VS2019</code> 或 <code>C++ 2019</code>。</li>
-</ul>
-</li>
-<li><p><strong>工具链路径验证</strong>：</p>
-<ul>
-<li>安装完成后，工具链默认路径为：<br><code>C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\</code><br>（路径中的版本号可能不同）。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="为什么需要安装MSVC-v142？"><a href="#为什么需要安装MSVC-v142？" class="headerlink" title="为什么需要安装MSVC v142？"></a><strong>为什么需要安装MSVC v142？</strong></h3><ul>
-<li>若你使用的Qt版本是 <strong>Qt 5.15.2 (msvc2019)</strong>，它依赖的是VS2019的编译器（MSVC v142）。  </li>
-<li>VS2022默认安装的是 <strong>MSVC v143</strong> 编译器，两者不兼容。  </li>
-<li>通过安装v142工具链，可以让VS2022兼容旧版Qt。</li>
-</ul>
-<hr>
-<h3 id="验证是否安装成功"><a href="#验证是否安装成功" class="headerlink" title="验证是否安装成功"></a><strong>验证是否安装成功</strong></h3><ol>
-<li>打开VS2022，创建一个空的C++控制台项目。</li>
-<li>右键项目 &gt; <strong>属性 &gt; 配置属性 &gt; 常规</strong>，检查 <strong>平台工具集</strong> 是否包含 <strong>Visual Studio 2019 (v142)</strong>。<br><img src="https://placehold.co/600x400?text=Check+Platform+Toolset" alt="检查平台工具集"></li>
-</ol>
-<hr>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/03/16/VS2022&MSVC2019/" data-id="cm8fndp500001xlpteguy2g9c" data-title="VS2022不支持MSVC2019" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/03/17/task1/" data-id="cm8fokd220003rppthp58405j" data-title="FreeRTOS中的任务实现" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -461,7 +254,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/03/15/Singleton/" data-id="cm8fndp4i0000xlpt3h759b4t" data-title="懒汉模式与饿汉模式" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/03/15/Singleton/" data-id="cm8fokd1d0000rpptbi6f59ya" data-title="懒汉模式与饿汉模式" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -628,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/11/15/error_in_VS/" data-id="cm8fndp5f0004xlptgz9ta2a0" data-title="VS上qt配置的若干问题" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/11/15/error_in_VS/" data-id="cm8fokd1z0002rppt59l1e2l9" data-title="VS上qt配置的若干问题" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -735,7 +528,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/11/15/wsl_network_error/" data-id="cm8fndp5l0006xlpt6vc51te1" data-title="WSL2的网络问题" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/11/15/wsl_network_error/" data-id="cm8fokd260004rppt35tv42z6" data-title="WSL2的网络问题" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -782,19 +575,19 @@
           </li>
         
           <li>
-            <a href="/2025/03/17/album/">QT电子相册题目</a>
-          </li>
-        
-          <li>
             <a href="/2025/03/17/task1/">FreeRTOS中的任务实现</a>
           </li>
         
           <li>
-            <a href="/2025/03/16/VS2022&MSVC2019/">VS2022不支持MSVC2019</a>
+            <a href="/2025/03/15/Singleton/">懒汉模式与饿汉模式</a>
           </li>
         
           <li>
-            <a href="/2025/03/15/Singleton/">懒汉模式与饿汉模式</a>
+            <a href="/2024/11/15/error_in_VS/">VS上qt配置的若干问题</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/15/wsl_network_error/">WSL2的网络问题</a>
           </li>
         
       </ul>
