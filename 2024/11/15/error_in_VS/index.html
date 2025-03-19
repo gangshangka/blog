@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>VS上qt配置的若干问题 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="一、“There’s no Qt version assigned to project WBoard.vcxproj for configuration Debug&#x2F;x64”错误解决办法在使用 Qt 与 Visual Studio 项目时，若遇到 Debug&#x2F;x64 配置中没有指定 Qt 版本出现上述错误，可按以下步骤解决：  确保正确安装了 Qt： 要保证系统中已正确安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VS上qt配置的若干问题">
+<meta property="og:url" content="http://example.com/2024/11/15/error_in_VS/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、“There’s no Qt version assigned to project WBoard.vcxproj for configuration Debug&#x2F;x64”错误解决办法在使用 Qt 与 Visual Studio 项目时，若遇到 Debug&#x2F;x64 配置中没有指定 Qt 版本出现上述错误，可按以下步骤解决：  确保正确安装了 Qt： 要保证系统中已正确安装">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-11-15T08:00:00.000Z">
+<meta property="article:modified_time" content="2025-03-19T07:59:03.953Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-error_in_VS" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/11/15/error_in_VS/" class="article-date">
+  <time class="dt-published" datetime="2024-11-15T08:00:00.000Z" itemprop="datePublished">2024-11-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      VS上qt配置的若干问题
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="一、“There’s-no-Qt-version-assigned-to-project-WBoard-vcxproj-for-configuration-Debug-x64”错误解决办法"><a href="#一、“There’s-no-Qt-version-assigned-to-project-WBoard-vcxproj-for-configuration-Debug-x64”错误解决办法" class="headerlink" title="一、“There’s no Qt version assigned to project WBoard.vcxproj for configuration Debug&#x2F;x64”错误解决办法"></a>一、“There’s no Qt version assigned to project WBoard.vcxproj for configuration Debug&#x2F;x64”错误解决办法</h1><p>在使用 Qt 与 Visual Studio 项目时，若遇到 Debug&#x2F;x64 配置中没有指定 Qt 版本出现上述错误，可按以下步骤解决：</p>
+<ol>
+<li><strong>确保正确安装了 Qt</strong>：<ul>
+<li>要保证系统中已正确安装 Qt，并且在 Visual Studio 中选择了正确的 Qt 版本。可通过 Qt Maintenance Tool 或从 Qt 官网下载并安装 Qt。</li>
+</ul>
+</li>
+<li><strong>在 Visual Studio 中配置 Qt</strong>：<ul>
+<li>打开项目（WBoard.vcxproj）。</li>
+<li>选择“工具”-&gt;“选项”。</li>
+<li>在“项目和解决方案”下，选择“Qt 项目设置”。</li>
+<li>确保为项目选择了正确的 Qt 版本。若没列出任何版本，可能需要手动添加，指定 Qt 安装路径。</li>
+</ul>
+</li>
+<li><strong>为项目分配 Qt 版本</strong>：<ul>
+<li>右键点击项目（WBoard.vcxproj），然后选择“属性”。</li>
+<li>在“配置属性”-&gt;“Qt 项目”下，确保“Qt 版本”字段正确设置为已安装的有效 Qt 版本。</li>
+</ul>
+</li>
+<li><strong>设置 Qt Kits</strong>：<ul>
+<li>若使用的是 Qt Creator 或手动管理 kits，确保在 Qt 设置中为 Debug&#x2F;x64 配置了正确的 kit（匹配平台和编译器）。</li>
+</ul>
+</li>
+<li><strong>重新构建项目</strong>：<ul>
+<li>配置好 Qt 版本后，重新构建项目，检查问题是否解决。</li>
+</ul>
+</li>
+</ol>
+<p>若按上述步骤操作后问题依然存在，尝试重新安装 Qt Visual Studio Tools，或检查系统中 Qt 的环境变量配置。</p>
+<h4 id="二、VS2022-中检查-Qt-Version-配置与项目属性是否一致的方法"><a href="#二、VS2022-中检查-Qt-Version-配置与项目属性是否一致的方法" class="headerlink" title="二、VS2022 中检查 Qt Version 配置与项目属性是否一致的方法"></a>二、VS2022 中检查 Qt Version 配置与项目属性是否一致的方法</h4><ol>
+<li><p><strong>检查 Qt 版本配置</strong>：</p>
+<ul>
+<li>打开 Visual Studio 2022，并确保已安装 Qt Visual Studio Tools 插件。</li>
+<li>打开 Qt 项目设置：<ul>
+<li>在菜单栏中，选择“工具（Tools）”-&gt;“选项（Options）”。</li>
+<li>在左侧面板中，找到“Qt Project Settings”或类似选项（根据安装插件，Qt 项目设置可能在“Projects and Solutions”或单独的 Qt 选项卡下）。</li>
+</ul>
+</li>
+<li>检查 Qt 版本：<ul>
+<li>在“Qt Project Settings”中，查看“Qt Versions”，这里列出已配置的 Qt 版本。确保已选择正确版本，且该版本指向安装的 Qt 路径。</li>
+<li>若 Qt 版本没配置或者未显示想要的版本，可点击“添加（Add）”按钮，选择正确的 Qt 安装路径。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>检查项目属性</strong>：</p>
+<ul>
+<li>打开项目属性：<ul>
+<li>在解决方案资源管理器中，右键点击项目（例如 WBoard.vcxproj），然后选择“属性（Properties）”。</li>
+</ul>
+</li>
+<li>检查 Qt 版本是否一致：<ul>
+<li>在项目属性窗口中，选择“配置属性”-&gt;“Qt 项目（Qt Project）”。</li>
+<li>在“Qt 版本”字段，确保它与上述配置中的 Qt 版本一致，若不一致，手动选择正确的 Qt 版本。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>检查 Qt 模块</strong>：</p>
+<ul>
+<li>在“Qt 项目”设置中，查看“Qt Modules”。</li>
+<li>确保项目使用了正确的 Qt 模块（例如 QtCore, QtWidgets, QtGui 等），且这些模块与选择的 Qt 版本兼容。</li>
+</ul>
+</li>
+<li><p><strong>重新生成项目</strong>：</p>
+<ul>
+<li>选择顶部菜单栏中的“生成（Build）”。</li>
+<li>点击“重新生成解决方案（Rebuild Solution）”以确保所有配置被正确应用。</li>
+</ul>
+</li>
+<li><p><strong>检查输出日志</strong>：<br>在重新生成项目时，查看输出窗口中的日志，看是否有关于 Qt 配置的错误信息，若 Qt 版本配置不正确，通常会看到类似“No Qt version assigned”或“Qt version mismatch”的错误信息。</p>
+</li>
+</ol>
+<h4 id="三、Visual-Studio-Installer-中安装-MSVC-v142-工具链的步骤及相关事项"><a href="#三、Visual-Studio-Installer-中安装-MSVC-v142-工具链的步骤及相关事项" class="headerlink" title="三、Visual Studio Installer 中安装 MSVC v142 工具链的步骤及相关事项"></a>三、Visual Studio Installer 中安装 MSVC v142 工具链的步骤及相关事项</h4><ol>
+<li><p><strong>详细步骤说明</strong>：</p>
+<ul>
+<li><strong>打开 Visual Studio Installer</strong>：<ul>
+<li>在 Windows 搜索栏中输入“Visual Studio Installer”，点击打开。</li>
+</ul>
+</li>
+<li><strong>选择要修改的 VS2022 版本</strong>：<ul>
+<li>在安装器中找到已安装的“Visual Studio 2022”，点击右侧的“修改”按钮。</li>
+</ul>
+</li>
+<li><strong>切换到“单个组件”标签页</strong>：<ul>
+<li>在弹出的界面中，顶部有多个标签页（工作负载、单个组件、语言包等），点击“单个组件”。</li>
+</ul>
+</li>
+<li><strong>搜索并勾选 MSVC v142 工具链</strong>：<ul>
+<li>在搜索框中输入“v142”，找到以下组件并勾选：<ul>
+<li>“MSVC v142 - VS2019 C++ x64&#x2F;x86 生成工具（最新）”（确保勾选的是针对 VS2019 的 v142 版本，而非 v143）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>完成修改并安装</strong>：<ul>
+<li>点击右下角的“修改”按钮，等待安装完成。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>注意事项</strong>：</p>
+<ul>
+<li><strong>权限问题</strong>：<ul>
+<li>如果提示需要管理员权限，请以管理员身份运行 Visual Studio Installer。</li>
+</ul>
+</li>
+<li><strong>组件名称可能随版本变化</strong>：<ul>
+<li>如果搜索不到“v142”，尝试关键词“VS2019”或“C++ 2019”。</li>
+</ul>
+</li>
+<li><strong>工具链路径验证</strong>：<ul>
+<li>安装完成后，工具链默认路径为：“C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\”（路径中的版本号可能不同）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>为什么需要安装 MSVC v142？</strong>：</p>
+<ul>
+<li>若使用的 Qt 版本是“Qt 5.15.2 (msvc2019)”，它依赖的是 VS2019 的编译器（MSVC v142）。</li>
+<li>VS2022 默认安装的是“MSVC v143”编译器，两者不兼容，通过安装 v142 工具链，可以让 VS2022 兼容旧版 Qt。</li>
+</ul>
+</li>
+<li><p><strong>验证是否安装成功</strong>：</p>
+<ul>
+<li>打开 VS2022，创建一个空的 C++ 控制台项目。</li>
+<li>右键项目 &gt;“属性”&gt;“配置属性”&gt;“常规”，检查“平台工具集”是否包含“Visual Studio 2019 (v142)”。</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/11/15/error_in_VS/" data-id="cm8fn1nxw0004w9pt6maw3kf3" data-title="VS上qt配置的若干问题" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/03/15/Singleton/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          懒汉模式与饿汉模式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/11/15/wsl_network_error/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">WSL2的网络问题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/03/17/aa/">文章标题</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/17/album/">QT电子相册题目</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/17/task1/">FreeRTOS中的任务实现</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/16/VS2022&MSVC2019/">VS2022不支持MSVC2019</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/15/Singleton/">懒汉模式与饿汉模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
