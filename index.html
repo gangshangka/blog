@@ -71,45 +71,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-aa" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/03/17/aa/" class="article-date">
-  <time class="dt-published" datetime="2025-03-17T02:00:00.000Z" itemprop="datePublished">2025-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/03/17/aa/">文章标题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="hello"><a href="#hello" class="headerlink" title="hello"></a>hello</h1><p>hello</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/03/17/aa/" data-id="cm8ialwq50002pxptb00k1lfw" data-title="文章标题" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post-epoll" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/03/17/epoll/" class="article-date">
@@ -136,163 +97,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/03/17/epoll/" data-id="cm8ialwq80003pxpt465hdzu1" data-title="文章标题" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-task1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/03/17/task1/" class="article-date">
-  <time class="dt-published" datetime="2025-03-17T02:00:00.000Z" itemprop="datePublished">2025-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/03/17/task1/">FreeRTOS中的任务实现</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="任务函数的调用"><a href="#任务函数的调用" class="headerlink" title="任务函数的调用"></a>任务函数的调用</h1><ol>
-<li>硬件初始化  </li>
-<li>初始化与任务相关的列表  </li>
-<li>创建任务 <code>xTaskCreateStatic</code>  </li>
-<li>添加任务到就绪列表  </li>
-<li>启动调度器  </li>
-<li><code>for</code> 循环让任务死循环</li>
-</ol>
-<h2 id="实现具体的函数"><a href="#实现具体的函数" class="headerlink" title="实现具体的函数"></a>实现具体的函数</h2><ul>
-<li><code>for</code> 循环；  </li>
-<li>任务切换  </li>
-<li><a target="_blank" rel="noopener" href="https://editor.csdn.net/md/?articleId=142267112">任务切换和调度函数</a></li>
-</ul>
-<h1 id="任务的定义与任务切换的实现"><a href="#任务的定义与任务切换的实现" class="headerlink" title="任务的定义与任务切换的实现"></a>任务的定义与任务切换的实现</h1><h2 id="实现任务创建函数"><a href="#实现任务创建函数" class="headerlink" title="实现任务创建函数"></a>实现任务创建函数</h2><p>任务的栈，任务的函数实体，实现任务控制块的创建和联系。</p>
-<p>静态创建，<code>configSUPPORT_STATIC_ALLOCATION</code> 在 <code>FreeRTOSConfig.h</code> 中定义，配置为 <code>1</code>。（静态创建）</p>
-<h3 id="xTaskCreateStatic-函数"><a href="#xTaskCreateStatic-函数" class="headerlink" title="xTaskCreateStatic() 函数"></a><code>xTaskCreateStatic()</code> 函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">TaskHandle_t <span class="title function_">xTaskCreateStatic</span><span class="params">(</span></span><br><span class="line"><span class="params">    TaskFunction_t xx,           <span class="comment">// 任务入口</span></span></span><br><span class="line"><span class="params">    <span class="type">const</span> <span class="type">char</span> * <span class="type">const</span> xx,       <span class="comment">// 任务名称，字符串形式</span></span></span><br><span class="line"><span class="params">    <span class="type">const</span> <span class="type">uint32_t</span> xx,           <span class="comment">// 任务栈大小</span></span></span><br><span class="line"><span class="params">    <span class="type">void</span> * <span class="type">const</span> xx,             <span class="comment">// 任务形参</span></span></span><br><span class="line"><span class="params">    StackType_t * <span class="type">const</span> xx,      <span class="comment">// 任务句柄</span></span></span><br><span class="line"><span class="params">    TCB_t * <span class="type">const</span> xx             <span class="comment">// 任务控制块</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
-
-<p>静态创建任务，内嵌 <code>prvInitialiseNewTask</code> 函数。</p>
-<ul>
-<li><strong><code>TaskFunction_t</code></strong>：任务函数本身（在 <code>projdefs.h</code> 中重定义的空指针）。任务运行时执行此函数，任务函数必须符合 <code>void*</code> 类型。  </li>
-<li><strong>运行传参</strong>：将函数指针传递给调度器，许多任务的具体实现不同，调度器运行时只需调用不同的任务函数，编译不需要硬编码不同的函数，否则调度器需要知道函数的具体实现，将函数的实现拷贝到调度器中。指针容易被赋值。  </li>
-<li><strong><code>tskTaskControlBlock</code></strong>：任务的控制块，任务的状态和各种与调度相关的信息，是 FreeRTOS 调度器用来管理任务的核心结构 (<code>tcb_t</code>)。</li>
-</ul>
-<h3 id="TCB-并不直接暴露给用户，而是通过-TaskHandle-t-来间接访问"><a href="#TCB-并不直接暴露给用户，而是通过-TaskHandle-t-来间接访问" class="headerlink" title="TCB 并不直接暴露给用户，而是通过 TaskHandle_t 来间接访问"></a><code>TCB</code> 并不直接暴露给用户，而是通过 <code>TaskHandle_t</code> 来间接访问</h3><ul>
-<li><strong><code>TaskHandle_t</code></strong>：任务句柄，在任务创建时获取，提供给用户，方便任务的挂起、恢复、删除等操作 (<code>tcb_t</code>)。  </li>
-<li><strong><code>TaskFunction_t</code></strong>：<code>void*</code> 类型，任务函数类型。</li>
-</ul>
-<h2 id="prvInitialiseNewTask-函数"><a href="#prvInitialiseNewTask-函数" class="headerlink" title="prvInitialiseNewTask() 函数"></a><code>prvInitialiseNewTask()</code> 函数</h2><p>用于初始化新任务的 <code>TCB</code> 和相关数据结构。</p>
-<h3 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h3><ul>
-<li>任务入口</li>
-<li>任务名称</li>
-<li>任务栈大小</li>
-<li>任务形参</li>
-<li>任务句柄</li>
-<li>任务控制块指针</li>
-</ul>
-<h3 id="获取栈顶地址"><a href="#获取栈顶地址" class="headerlink" title="获取栈顶地址"></a>获取栈顶地址</h3><p>（传入的 <code>任务控制块指针</code>（此函数参数）内部的 <code>栈起始地址</code> 加上 <code>栈大小</code>（此函数参数）减 <code>1</code> 作为栈顶地址（被重定义过的整型变量））</p>
-<ul>
-<li>向下做 <code>8</code> 字节对齐</li>
-</ul>
-<h3 id="将任务的名字存储在-TCB-中"><a href="#将任务的名字存储在-TCB-中" class="headerlink" title="将任务的名字存储在 TCB 中"></a>将任务的名字存储在 <code>TCB</code> 中</h3><ul>
-<li>字符串长度小于 <code>configMAX_TASK_NAME_LEN</code> 的情况下递增循环</li>
-<li>储存在 <code>xTaskCreateStatic()</code> 函数中控制块索引指针中</li>
-<li>若出现 <code>0x00</code>（即以 <code>&#39;/0&#39;</code> 结尾则退出）</li>
-<li>强行给最大长度的前一位置 <code>0</code></li>
-</ul>
-<h3 id="初始化-TCB-中的-xStateListItem-（任务节点）"><a href="#初始化-TCB-中的-xStateListItem-（任务节点）" class="headerlink" title="初始化 TCB 中的 xStateListItem （任务节点）"></a>初始化 <code>TCB</code> 中的 <code>xStateListItem</code> （任务节点）</h3><ul>
-<li>使用 <code>vListInitialiseItem</code> 函数初始化链表项 <code>xStateListItem</code></li>
-<li>使用 <code>listSET_LIST_ITEM_OWNER</code> 配置 <code>xStateListItem</code> 的拥有者项</li>
-</ul>
-<h3 id="调用函数初始化任务栈，并更新栈顶指针"><a href="#调用函数初始化任务栈，并更新栈顶指针" class="headerlink" title="调用函数初始化任务栈，并更新栈顶指针"></a>调用函数初始化任务栈，并更新栈顶指针</h3><ul>
-<li>调用 <code>pxPortInitialiseStack()</code> 函数初始化任务栈，并更新栈顶指针</li>
-<li>任务句柄指向任务控制块</li>
-</ul>
-<h2 id="pxPortInitialiseStack-函数"><a href="#pxPortInitialiseStack-函数" class="headerlink" title="pxPortInitialiseStack() 函数"></a><code>pxPortInitialiseStack()</code> 函数</h2><p>它的主要作用是为新创建的任务设置初始的栈状态（上文初始化栈状态时用到），以便任务能够正确地开始执行。确保栈的顶部包含正确的初始值。（存储的内容在异常发生时会自动加载到 CPU）</p>
-<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StackType_t *pxTopOfStack,  <span class="comment">// 栈顶指针</span></span><br><span class="line">TaskFunction_t pxCode,      <span class="comment">// 任务入口函数</span></span><br><span class="line"><span class="type">void</span> *pvParameters          <span class="comment">// 任务形参</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="初始化栈"><a href="#初始化栈" class="headerlink" title="初始化栈"></a>初始化栈</h3><ul>
-<li><code>xPSR</code> 的 <code>bit24</code> 必须置 <code>1</code>（thumb 模式）</li>
-<li><strong>任务的入口地址</strong>（这个函数在内存中的地址）<blockquote>
-<p>当任务被创建时，FreeRTOS 会将任务入口地址（即任务函数的地址）保存到任务栈中，以便在任务切换时能够恢复这个地址并开始执行任务。</p>
-</blockquote>
-</li>
-<li><strong>任务的返回地址</strong><blockquote>
-<p>它是在任务执行过程中保存的，用于在任务切换时恢复任务的执行状态。不过 FreeRTOS 会将 <code>PC</code> 设置为 <code>prvTaskExitError</code>，而不是返回到任务的调用位置。这是为了确保任务结束后不会继续执行不应执行的代码。<br>FreeRTOS 中的任务函数通常是一个无限循环。</p>
-</blockquote>
-</li>
-<li><code>R12</code>, <code>R3</code>, <code>R2</code> 和 <code>R1</code> 默认初始化为 <code>0</code>。</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/03/17/task1/" data-id="cm8ialwqe0005pxpth8s1gb1p" data-title="FreeRTOS中的任务实现" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Singleton" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/03/15/Singleton/" class="article-date">
-  <time class="dt-published" datetime="2025-03-15T02:00:00.000Z" itemprop="datePublished">2025-03-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/03/15/Singleton/">懒汉模式与饿汉模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="懒汉模式与饿汉模式"><a href="#懒汉模式与饿汉模式" class="headerlink" title="懒汉模式与饿汉模式"></a>懒汉模式与饿汉模式</h1><h2 id="懒汉模式：获取单例时才初始化"><a href="#懒汉模式：获取单例时才初始化" class="headerlink" title="懒汉模式：获取单例时才初始化"></a>懒汉模式：获取单例时才初始化</h2><p><strong>线程不安全：</strong><br>两个线程同时判断 <code>instance</code> 为空，创建了两个 <code>instance</code> 实例，不符合单例模式</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> Singleton* instance;</span><br><span class="line">    <span class="built_in">Singleton</span>() &#123;&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="built_in">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton* Singleton::instance = <span class="literal">nullptr</span>;</span><br></pre></td></tr></table></figure>
-
-<p><strong>解决方法：</strong><br>添加锁，实例还未创建时枷锁，创建实例前需要再判断一次。可能一个线程已经在创建实例了，确保不会因为枷锁期间多个线程同时进入。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;mutex&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> Singleton* instance;</span><br><span class="line">    <span class="type">static</span> std::mutex mtx;</span><br><span class="line">    <span class="built_in">Singleton</span>() &#123;&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(mtx)</span></span>;</span><br><span class="line">            <span class="keyword">if</span> (instance == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">                instance = <span class="keyword">new</span> <span class="built_in">Singleton</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton* Singleton::instance = <span class="literal">nullptr</span>;</span><br><span class="line">std::mutex Singleton::mtx;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="饿汉模式：在类一加载时就初始化了-instance-这个静态变量"><a href="#饿汉模式：在类一加载时就初始化了-instance-这个静态变量" class="headerlink" title="饿汉模式：在类一加载时就初始化了 instance 这个静态变量"></a>饿汉模式：在类一加载时就初始化了 <code>instance</code> 这个静态变量</h2><p>（在编译时就可以被初始化）, 不用判断是否存在，肯定已经存在，直接返回 <code>instance</code>。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> Singleton* instance;</span><br><span class="line">    <span class="built_in">Singleton</span>() &#123;&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton* Singleton::instance = <span class="keyword">new</span> <span class="built_in">Singleton</span>();</span><br></pre></td></tr></table></figure>
-
-<hr>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/03/15/Singleton/" data-id="cm8ialwpy0001pxpt2ommh8nr" data-title="懒汉模式与饿汉模式" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/03/17/epoll/" data-id="cm8iaxafb0003j9ptb8fq6o5y" data-title="文章标题" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -399,7 +204,56 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/15/Qt_in_VS/" data-id="cm8ialwph0000pxpta612b8zy" data-title="文章标题" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/02/15/Qt_in_VS/" data-id="cm8iaxael0000j9pt66wt9473" data-title="文章标题" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Singleton" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/15/Singleton/" class="article-date">
+  <time class="dt-published" datetime="2025-02-15T02:00:00.000Z" itemprop="datePublished">2025-02-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/15/Singleton/">懒汉模式与饿汉模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="懒汉模式与饿汉模式"><a href="#懒汉模式与饿汉模式" class="headerlink" title="懒汉模式与饿汉模式"></a>懒汉模式与饿汉模式</h1><h2 id="懒汉模式：获取单例时才初始化"><a href="#懒汉模式：获取单例时才初始化" class="headerlink" title="懒汉模式：获取单例时才初始化"></a>懒汉模式：获取单例时才初始化</h2><p><strong>线程不安全：</strong><br>两个线程同时判断 <code>instance</code> 为空，创建了两个 <code>instance</code> 实例，不符合单例模式</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> Singleton* instance;</span><br><span class="line">    <span class="built_in">Singleton</span>() &#123;&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="built_in">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton* Singleton::instance = <span class="literal">nullptr</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>解决方法：</strong><br>添加锁，实例还未创建时枷锁，创建实例前需要再判断一次。可能一个线程已经在创建实例了，确保不会因为枷锁期间多个线程同时进入。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;mutex&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> Singleton* instance;</span><br><span class="line">    <span class="type">static</span> std::mutex mtx;</span><br><span class="line">    <span class="built_in">Singleton</span>() &#123;&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(mtx)</span></span>;</span><br><span class="line">            <span class="keyword">if</span> (instance == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">                instance = <span class="keyword">new</span> <span class="built_in">Singleton</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton* Singleton::instance = <span class="literal">nullptr</span>;</span><br><span class="line">std::mutex Singleton::mtx;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="饿汉模式：在类一加载时就初始化了-instance-这个静态变量"><a href="#饿汉模式：在类一加载时就初始化了-instance-这个静态变量" class="headerlink" title="饿汉模式：在类一加载时就初始化了 instance 这个静态变量"></a>饿汉模式：在类一加载时就初始化了 <code>instance</code> 这个静态变量</h2><p>（在编译时就可以被初始化）, 不用判断是否存在，肯定已经存在，直接返回 <code>instance</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> Singleton* instance;</span><br><span class="line">    <span class="built_in">Singleton</span>() &#123;&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton* Singleton::instance = <span class="keyword">new</span> <span class="built_in">Singleton</span>();</span><br></pre></td></tr></table></figure>
+
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/15/Singleton/" data-id="cm8iaxaf10001j9pt57qrhh34" data-title="懒汉模式与饿汉模式" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -566,7 +420,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/11/15/error_in_VS/" data-id="cm8ialwqb0004pxptdew0512v" data-title="VS上qt配置的若干问题" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/11/15/error_in_VS/" data-id="cm8iaxafd0004j9ptau46aj5k" data-title="VS上qt配置的若干问题" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -673,7 +527,241 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/11/15/wsl_network_error/" data-id="cm8ialwqg0006pxptddgrf46d" data-title="WSL2的网络问题" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/11/15/wsl_network_error/" data-id="cm8iaxafl0007j9pt4qndh5yp" data-title="WSL2的网络问题" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-message_queue" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/17/message_queue/" class="article-date">
+  <time class="dt-published" datetime="2024-10-17T08:00:00.000Z" itemprop="datePublished">2024-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/10/17/message_queue/">文章标题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>先分配内存空间<br>初始化消息队列<br>系统自动为控制块方培内存空间</p>
+<blockquote>
+<p>如存储位置，头指针，为指针，消息大小，队列长度，<br>消息队列和消息空间在同一段内存空间中，创建水分配了消息空间呵消息队列的容量，无法更改。</p>
+</blockquote>
+<p>发送一般消息：</p>
+<blockquote>
+<p>若队列未满或者允许覆盖，将信息拷贝到队尾。否则，根据指定的超时时间阻塞。<br>若等到队列未满，或者超过了阻塞时间，则从阻塞状态转换为就绪状态，后者会收到错误码。</p>
+</blockquote>
+<p>发送紧急消息，消息会被复制到消息队列队头。</p>
+<ul>
+<li><p>读取消息队列</p>
+<blockquote>
+<p>如果队列为空,任务保持阻塞状态。队列不空时，自动转变为就绪态。超过了阻塞时间自动转变为就绪态。</p>
+</blockquote>
+</li>
+<li><p>在中断总发消息不允许带有阻塞机制</p>
+<blockquote>
+<p>中断必须快速响应和硬件中断<br> 任务调度器不会在中断中运行<br> 高优先级中断可能要更快地执行</p>
+</blockquote>
+</li>
+</ul>
+<p> 如果在中断过程中更高优先级的任务被唤醒，中断返回后会返回更高优先级的任务。<br>消息队列创建：创建一个消息队列返回这个队列的队列句柄。<br>每创建一个新的队列需要对其分配RAM，存储状态和队列信息。<br>xQueueCreate()：<br>使用动态内存分配，需将configSUPPORT_DYNAMIC_ALLOCATION 置1，（FreeRTOSConfig.h）<br> xQueueCreateStatic() ：静态内存分配</p>
+<h2 id="prvInitialiseNewQueue"><a href="#prvInitialiseNewQueue" class="headerlink" title="prvInitialiseNewQueue()"></a>prvInitialiseNewQueue()</h2><blockquote>
+<p>参数：消息队列长度，单个消息大小，存储消息起始地址<br> 消息队列类型<br>未分配存储消息的内存空间： 单个消息大小为0时将pchead指向队列控制块 pxNewQueue，因为消息队列用作互斥量时pchead设置为NULL。<br>分配了存储消息的内存空间：  pcHead 指向存储消息的<br>起始地址 pucQueueStorage。<br><strong>初始化消息队列控制块-&gt;重置消息队列</strong></p>
+</blockquote>
+<h2 id="重置消息队列-xQueueGenericReset"><a href="#重置消息队列-xQueueGenericReset" class="headerlink" title="重置消息队列 xQueueGenericReset()"></a>重置消息队列 xQueueGenericReset()</h2><p>进入临界段是为了确保多任务并发环境中的数据一致性<br>需要恢复发送阻塞消息队列，便于数据发送</p>
+<h2 id="队列创建"><a href="#队列创建" class="headerlink" title="队列创建"></a>队列创建</h2><p>队列创建时也需要进入临界区：临界区锁定的中断屏蔽<br>内存分配和指针初始化不能被打断，被错误的初始化或访问。导致内存访问错误或者队列崩溃。</p>
+<h2 id="通用消息队列发送函数-xQueueGenericSend"><a href="#通用消息队列发送函数-xQueueGenericSend" class="headerlink" title="通用消息队列发送函数 xQueueGenericSend()"></a>通用消息队列发送函数 xQueueGenericSend()</h2><h3 id="队列未满-》添加信息"><a href="#队列未满-》添加信息" class="headerlink" title="队列未满-》添加信息"></a>队列未满-》添加信息</h3><p>恢复等待消息阻塞的任务
+	</p>
+<ol>
+<li>若恢复的任务优先级比当前任务高-》切换任务</li>
+<li>如果没有等待的任务，拷贝成功也需要任务切换</li>
+</ol>
+<h3 id="队列已满-》"><a href="#队列已满-》" class="headerlink" title="队列已满-》"></a>队列已满-》</h3><p>不指定阻塞超时时间，退出，返回错误<br>初始化阻塞超时结构体变量，初始化进入</p>
+<h3 id="结束之后"><a href="#结束之后" class="headerlink" title="结束之后"></a>结束之后</h3><p>检查是否超时<br>如果队列还是满的-》添加任务到等待发送列表中和</p>
+<h2 id="接受信息xQueueGenericReceive"><a href="#接受信息xQueueGenericReceive" class="headerlink" title="接受信息xQueueGenericReceive()"></a>接受信息xQueueGenericReceive()</h2><p><strong>从队列中接收消息并把消息从队列中删除</strong><br>接收的信息以拷贝的形式存在，必须提供一个足够大的缓存区（中断时必须使用特定的函数）</p>
+<p>设置阻塞时间，若队列为空，任务保持阻塞状态。若等待时间超过两万指定的阻塞时间，直接从阻塞状态转化成就绪态。</p>
+<h2 id="挂起任务调度器和进入临界区"><a href="#挂起任务调度器和进入临界区" class="headerlink" title="挂起任务调度器和进入临界区"></a>挂起任务调度器和进入临界区</h2><p>在将任务设置为阻塞的过程中，挂起调度器并进入临界区<br>挂起调度器意味着任务不能切换并且不准调用可能引起任务切换的 API 函数。 但挂起调度器并不会禁止中断，中断服务函数<br>仍然可以操作队列事件列表，可能会解除任务阻塞、可能会进行上下文切换，这也是不允许的。解决办法是还要给队列上锁，禁止任何中断来操作队列</p>
+<blockquote>
+<p>假设有一个高优先级任务 A 和一个低优先级任务 B。任务 A 想入队，但队列已满，任务 A 将进入阻塞状态，并等待队列空闲。如果在任务 A 被正确地阻塞并添加到等待列表之前，低优先级任务 B 或者中断修改了队列的状态，它可能抢先完成入队操作</p>
+</blockquote>
+<h2 id="互斥量"><a href="#互斥量" class="headerlink" title="互斥量"></a>互斥量</h2><p>递归获取信号量时可能出现死锁的情况：</p>
+<ul>
+<li>信号量用完：</li>
+<li>阻塞 vs 死锁：<blockquote>
+<p>单次获取信号量且信号量不可用，任务会进入阻塞状态，此时系统能够恢复正常运行。然而，如果任务递归获取信号量，并且没有释放信号量，导致信号量完全用尽，那么任务自身将无法继续执行，且也无法释放之前获取的信号量，这就形成了死锁。此时，没有其他任务可以释放信号量，系统无法恢复，导致死锁。</p>
+</blockquote>
+</li>
+</ul>
+<p>使用临界区资源的方法：<br>获取并释放信号量<br>xSemaphoreTake（）xSemaphoreGive（）<br>挂起任务调度器 vTaskSuspendAll();xTaskResumeAll();<br> 禁用中断<br> taskENTER_CRITICAL()和          taskEXIT_CRITICAL()</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/10/17/message_queue/" data-id="cm8iaxafg0005j9pt2jnj007d" data-title="文章标题" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-task1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/05/17/task1/" class="article-date">
+  <time class="dt-published" datetime="2024-05-17T02:00:00.000Z" itemprop="datePublished">2024-05-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/05/17/task1/">FreeRTOS中的任务实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="任务函数的调用"><a href="#任务函数的调用" class="headerlink" title="任务函数的调用"></a>任务函数的调用</h1><ol>
+<li>硬件初始化  </li>
+<li>初始化与任务相关的列表  </li>
+<li>创建任务 <code>xTaskCreateStatic</code>  </li>
+<li>添加任务到就绪列表  </li>
+<li>启动调度器  </li>
+<li><code>for</code> 循环让任务死循环</li>
+</ol>
+<h2 id="实现具体的函数"><a href="#实现具体的函数" class="headerlink" title="实现具体的函数"></a>实现具体的函数</h2><ul>
+<li><code>for</code> 循环；  </li>
+<li>任务切换  </li>
+<li><a target="_blank" rel="noopener" href="https://editor.csdn.net/md/?articleId=142267112">任务切换和调度函数</a></li>
+</ul>
+<h1 id="任务的定义与任务切换的实现"><a href="#任务的定义与任务切换的实现" class="headerlink" title="任务的定义与任务切换的实现"></a>任务的定义与任务切换的实现</h1><h2 id="实现任务创建函数"><a href="#实现任务创建函数" class="headerlink" title="实现任务创建函数"></a>实现任务创建函数</h2><p>任务的栈，任务的函数实体，实现任务控制块的创建和联系。</p>
+<p>静态创建，<code>configSUPPORT_STATIC_ALLOCATION</code> 在 <code>FreeRTOSConfig.h</code> 中定义，配置为 <code>1</code>。（静态创建）</p>
+<h3 id="xTaskCreateStatic-函数"><a href="#xTaskCreateStatic-函数" class="headerlink" title="xTaskCreateStatic() 函数"></a><code>xTaskCreateStatic()</code> 函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">TaskHandle_t <span class="title function_">xTaskCreateStatic</span><span class="params">(</span></span><br><span class="line"><span class="params">    TaskFunction_t xx,           <span class="comment">// 任务入口</span></span></span><br><span class="line"><span class="params">    <span class="type">const</span> <span class="type">char</span> * <span class="type">const</span> xx,       <span class="comment">// 任务名称，字符串形式</span></span></span><br><span class="line"><span class="params">    <span class="type">const</span> <span class="type">uint32_t</span> xx,           <span class="comment">// 任务栈大小</span></span></span><br><span class="line"><span class="params">    <span class="type">void</span> * <span class="type">const</span> xx,             <span class="comment">// 任务形参</span></span></span><br><span class="line"><span class="params">    StackType_t * <span class="type">const</span> xx,      <span class="comment">// 任务句柄</span></span></span><br><span class="line"><span class="params">    TCB_t * <span class="type">const</span> xx             <span class="comment">// 任务控制块</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>静态创建任务，内嵌 <code>prvInitialiseNewTask</code> 函数。</p>
+<ul>
+<li><strong><code>TaskFunction_t</code></strong>：任务函数本身（在 <code>projdefs.h</code> 中重定义的空指针）。任务运行时执行此函数，任务函数必须符合 <code>void*</code> 类型。  </li>
+<li><strong>运行传参</strong>：将函数指针传递给调度器，许多任务的具体实现不同，调度器运行时只需调用不同的任务函数，编译不需要硬编码不同的函数，否则调度器需要知道函数的具体实现，将函数的实现拷贝到调度器中。指针容易被赋值。  </li>
+<li><strong><code>tskTaskControlBlock</code></strong>：任务的控制块，任务的状态和各种与调度相关的信息，是 FreeRTOS 调度器用来管理任务的核心结构 (<code>tcb_t</code>)。</li>
+</ul>
+<h3 id="TCB-并不直接暴露给用户，而是通过-TaskHandle-t-来间接访问"><a href="#TCB-并不直接暴露给用户，而是通过-TaskHandle-t-来间接访问" class="headerlink" title="TCB 并不直接暴露给用户，而是通过 TaskHandle_t 来间接访问"></a><code>TCB</code> 并不直接暴露给用户，而是通过 <code>TaskHandle_t</code> 来间接访问</h3><ul>
+<li><strong><code>TaskHandle_t</code></strong>：任务句柄，在任务创建时获取，提供给用户，方便任务的挂起、恢复、删除等操作 (<code>tcb_t</code>)。  </li>
+<li><strong><code>TaskFunction_t</code></strong>：<code>void*</code> 类型，任务函数类型。</li>
+</ul>
+<h2 id="prvInitialiseNewTask-函数"><a href="#prvInitialiseNewTask-函数" class="headerlink" title="prvInitialiseNewTask() 函数"></a><code>prvInitialiseNewTask()</code> 函数</h2><p>用于初始化新任务的 <code>TCB</code> 和相关数据结构。</p>
+<h3 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h3><ul>
+<li>任务入口</li>
+<li>任务名称</li>
+<li>任务栈大小</li>
+<li>任务形参</li>
+<li>任务句柄</li>
+<li>任务控制块指针</li>
+</ul>
+<h3 id="获取栈顶地址"><a href="#获取栈顶地址" class="headerlink" title="获取栈顶地址"></a>获取栈顶地址</h3><p>（传入的 <code>任务控制块指针</code>（此函数参数）内部的 <code>栈起始地址</code> 加上 <code>栈大小</code>（此函数参数）减 <code>1</code> 作为栈顶地址（被重定义过的整型变量））</p>
+<ul>
+<li>向下做 <code>8</code> 字节对齐</li>
+</ul>
+<h3 id="将任务的名字存储在-TCB-中"><a href="#将任务的名字存储在-TCB-中" class="headerlink" title="将任务的名字存储在 TCB 中"></a>将任务的名字存储在 <code>TCB</code> 中</h3><ul>
+<li>字符串长度小于 <code>configMAX_TASK_NAME_LEN</code> 的情况下递增循环</li>
+<li>储存在 <code>xTaskCreateStatic()</code> 函数中控制块索引指针中</li>
+<li>若出现 <code>0x00</code>（即以 <code>&#39;/0&#39;</code> 结尾则退出）</li>
+<li>强行给最大长度的前一位置 <code>0</code></li>
+</ul>
+<h3 id="初始化-TCB-中的-xStateListItem-（任务节点）"><a href="#初始化-TCB-中的-xStateListItem-（任务节点）" class="headerlink" title="初始化 TCB 中的 xStateListItem （任务节点）"></a>初始化 <code>TCB</code> 中的 <code>xStateListItem</code> （任务节点）</h3><ul>
+<li>使用 <code>vListInitialiseItem</code> 函数初始化链表项 <code>xStateListItem</code></li>
+<li>使用 <code>listSET_LIST_ITEM_OWNER</code> 配置 <code>xStateListItem</code> 的拥有者项</li>
+</ul>
+<h3 id="调用函数初始化任务栈，并更新栈顶指针"><a href="#调用函数初始化任务栈，并更新栈顶指针" class="headerlink" title="调用函数初始化任务栈，并更新栈顶指针"></a>调用函数初始化任务栈，并更新栈顶指针</h3><ul>
+<li>调用 <code>pxPortInitialiseStack()</code> 函数初始化任务栈，并更新栈顶指针</li>
+<li>任务句柄指向任务控制块</li>
+</ul>
+<h2 id="pxPortInitialiseStack-函数"><a href="#pxPortInitialiseStack-函数" class="headerlink" title="pxPortInitialiseStack() 函数"></a><code>pxPortInitialiseStack()</code> 函数</h2><p>它的主要作用是为新创建的任务设置初始的栈状态（上文初始化栈状态时用到），以便任务能够正确地开始执行。确保栈的顶部包含正确的初始值。（存储的内容在异常发生时会自动加载到 CPU）</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StackType_t *pxTopOfStack,  <span class="comment">// 栈顶指针</span></span><br><span class="line">TaskFunction_t pxCode,      <span class="comment">// 任务入口函数</span></span><br><span class="line"><span class="type">void</span> *pvParameters          <span class="comment">// 任务形参</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化栈"><a href="#初始化栈" class="headerlink" title="初始化栈"></a>初始化栈</h3><ul>
+<li><code>xPSR</code> 的 <code>bit24</code> 必须置 <code>1</code>（thumb 模式）</li>
+<li><strong>任务的入口地址</strong>（这个函数在内存中的地址）<blockquote>
+<p>当任务被创建时，FreeRTOS 会将任务入口地址（即任务函数的地址）保存到任务栈中，以便在任务切换时能够恢复这个地址并开始执行任务。</p>
+</blockquote>
+</li>
+<li><strong>任务的返回地址</strong><blockquote>
+<p>它是在任务执行过程中保存的，用于在任务切换时恢复任务的执行状态。不过 FreeRTOS 会将 <code>PC</code> 设置为 <code>prvTaskExitError</code>，而不是返回到任务的调用位置。这是为了确保任务结束后不会继续执行不应执行的代码。<br>FreeRTOS 中的任务函数通常是一个无限循环。</p>
+</blockquote>
+</li>
+<li><code>R12</code>, <code>R3</code>, <code>R2</code> 和 <code>R1</code> 默认初始化为 <code>0</code>。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/05/17/task1/" data-id="cm8iaxafi0006j9pt324wea20" data-title="FreeRTOS中的任务实现" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-aa" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/01/17/aa/" class="article-date">
+  <time class="dt-published" datetime="2024-01-17T02:00:00.000Z" itemprop="datePublished">2024-01-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/01/17/aa/">文章标题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="hello"><a href="#hello" class="headerlink" title="hello"></a>hello</h1><p>hello</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/01/17/aa/" data-id="cm8iaxaf80002j9pt6p3o8uwh" data-title="文章标题" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -703,7 +791,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li></ul>
     </div>
   </div>
 
@@ -716,23 +804,23 @@
       <ul>
         
           <li>
-            <a href="/2025/03/17/aa/">文章标题</a>
-          </li>
-        
-          <li>
             <a href="/2025/03/17/epoll/">文章标题</a>
           </li>
         
           <li>
-            <a href="/2025/03/17/task1/">FreeRTOS中的任务实现</a>
-          </li>
-        
-          <li>
-            <a href="/2025/03/15/Singleton/">懒汉模式与饿汉模式</a>
-          </li>
-        
-          <li>
             <a href="/2025/02/15/Qt_in_VS/">文章标题</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/15/Singleton/">懒汉模式与饿汉模式</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/15/error_in_VS/">VS上qt配置的若干问题</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/15/wsl_network_error/">WSL2的网络问题</a>
           </li>
         
       </ul>

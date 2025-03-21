@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>文章标题 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="先分配内存空间初始化消息队列系统自动为控制块方培内存空间  如存储位置，头指针，为指针，消息大小，队列长度，消息队列和消息空间在同一段内存空间中，创建水分配了消息空间呵消息队列的容量，无法更改。  发送一般消息：  若队列未满或者允许覆盖，将信息拷贝到队尾。否则，根据指定的超时时间阻塞。若等到队列未满，或者超过了阻塞时间，则从阻塞状态转换为就绪状态，后者会收到错误码。  发送紧急消息，消息会被复制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文章标题">
+<meta property="og:url" content="http://example.com/2024/10/17/message_queue/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="先分配内存空间初始化消息队列系统自动为控制块方培内存空间  如存储位置，头指针，为指针，消息大小，队列长度，消息队列和消息空间在同一段内存空间中，创建水分配了消息空间呵消息队列的容量，无法更改。  发送一般消息：  若队列未满或者允许覆盖，将信息拷贝到队尾。否则，根据指定的超时时间阻塞。若等到队列未满，或者超过了阻塞时间，则从阻塞状态转换为就绪状态，后者会收到错误码。  发送紧急消息，消息会被复制">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-10-17T08:00:00.000Z">
+<meta property="article:modified_time" content="2025-03-21T04:47:31.288Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-message_queue" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/17/message_queue/" class="article-date">
+  <time class="dt-published" datetime="2024-10-17T08:00:00.000Z" itemprop="datePublished">2024-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      文章标题
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>先分配内存空间<br>初始化消息队列<br>系统自动为控制块方培内存空间</p>
+<blockquote>
+<p>如存储位置，头指针，为指针，消息大小，队列长度，<br>消息队列和消息空间在同一段内存空间中，创建水分配了消息空间呵消息队列的容量，无法更改。</p>
+</blockquote>
+<p>发送一般消息：</p>
+<blockquote>
+<p>若队列未满或者允许覆盖，将信息拷贝到队尾。否则，根据指定的超时时间阻塞。<br>若等到队列未满，或者超过了阻塞时间，则从阻塞状态转换为就绪状态，后者会收到错误码。</p>
+</blockquote>
+<p>发送紧急消息，消息会被复制到消息队列队头。</p>
+<ul>
+<li><p>读取消息队列</p>
+<blockquote>
+<p>如果队列为空,任务保持阻塞状态。队列不空时，自动转变为就绪态。超过了阻塞时间自动转变为就绪态。</p>
+</blockquote>
+</li>
+<li><p>在中断总发消息不允许带有阻塞机制</p>
+<blockquote>
+<p>中断必须快速响应和硬件中断<br> 任务调度器不会在中断中运行<br> 高优先级中断可能要更快地执行</p>
+</blockquote>
+</li>
+</ul>
+<p> 如果在中断过程中更高优先级的任务被唤醒，中断返回后会返回更高优先级的任务。<br>消息队列创建：创建一个消息队列返回这个队列的队列句柄。<br>每创建一个新的队列需要对其分配RAM，存储状态和队列信息。<br>xQueueCreate()：<br>使用动态内存分配，需将configSUPPORT_DYNAMIC_ALLOCATION 置1，（FreeRTOSConfig.h）<br> xQueueCreateStatic() ：静态内存分配</p>
+<h2 id="prvInitialiseNewQueue"><a href="#prvInitialiseNewQueue" class="headerlink" title="prvInitialiseNewQueue()"></a>prvInitialiseNewQueue()</h2><blockquote>
+<p>参数：消息队列长度，单个消息大小，存储消息起始地址<br> 消息队列类型<br>未分配存储消息的内存空间： 单个消息大小为0时将pchead指向队列控制块 pxNewQueue，因为消息队列用作互斥量时pchead设置为NULL。<br>分配了存储消息的内存空间：  pcHead 指向存储消息的<br>起始地址 pucQueueStorage。<br><strong>初始化消息队列控制块-&gt;重置消息队列</strong></p>
+</blockquote>
+<h2 id="重置消息队列-xQueueGenericReset"><a href="#重置消息队列-xQueueGenericReset" class="headerlink" title="重置消息队列 xQueueGenericReset()"></a>重置消息队列 xQueueGenericReset()</h2><p>进入临界段是为了确保多任务并发环境中的数据一致性<br>需要恢复发送阻塞消息队列，便于数据发送</p>
+<h2 id="队列创建"><a href="#队列创建" class="headerlink" title="队列创建"></a>队列创建</h2><p>队列创建时也需要进入临界区：临界区锁定的中断屏蔽<br>内存分配和指针初始化不能被打断，被错误的初始化或访问。导致内存访问错误或者队列崩溃。</p>
+<h2 id="通用消息队列发送函数-xQueueGenericSend"><a href="#通用消息队列发送函数-xQueueGenericSend" class="headerlink" title="通用消息队列发送函数 xQueueGenericSend()"></a>通用消息队列发送函数 xQueueGenericSend()</h2><h3 id="队列未满-》添加信息"><a href="#队列未满-》添加信息" class="headerlink" title="队列未满-》添加信息"></a>队列未满-》添加信息</h3><p>恢复等待消息阻塞的任务
+	</p>
+<ol>
+<li>若恢复的任务优先级比当前任务高-》切换任务</li>
+<li>如果没有等待的任务，拷贝成功也需要任务切换</li>
+</ol>
+<h3 id="队列已满-》"><a href="#队列已满-》" class="headerlink" title="队列已满-》"></a>队列已满-》</h3><p>不指定阻塞超时时间，退出，返回错误<br>初始化阻塞超时结构体变量，初始化进入</p>
+<h3 id="结束之后"><a href="#结束之后" class="headerlink" title="结束之后"></a>结束之后</h3><p>检查是否超时<br>如果队列还是满的-》添加任务到等待发送列表中和</p>
+<h2 id="接受信息xQueueGenericReceive"><a href="#接受信息xQueueGenericReceive" class="headerlink" title="接受信息xQueueGenericReceive()"></a>接受信息xQueueGenericReceive()</h2><p><strong>从队列中接收消息并把消息从队列中删除</strong><br>接收的信息以拷贝的形式存在，必须提供一个足够大的缓存区（中断时必须使用特定的函数）</p>
+<p>设置阻塞时间，若队列为空，任务保持阻塞状态。若等待时间超过两万指定的阻塞时间，直接从阻塞状态转化成就绪态。</p>
+<h2 id="挂起任务调度器和进入临界区"><a href="#挂起任务调度器和进入临界区" class="headerlink" title="挂起任务调度器和进入临界区"></a>挂起任务调度器和进入临界区</h2><p>在将任务设置为阻塞的过程中，挂起调度器并进入临界区<br>挂起调度器意味着任务不能切换并且不准调用可能引起任务切换的 API 函数。 但挂起调度器并不会禁止中断，中断服务函数<br>仍然可以操作队列事件列表，可能会解除任务阻塞、可能会进行上下文切换，这也是不允许的。解决办法是还要给队列上锁，禁止任何中断来操作队列</p>
+<blockquote>
+<p>假设有一个高优先级任务 A 和一个低优先级任务 B。任务 A 想入队，但队列已满，任务 A 将进入阻塞状态，并等待队列空闲。如果在任务 A 被正确地阻塞并添加到等待列表之前，低优先级任务 B 或者中断修改了队列的状态，它可能抢先完成入队操作</p>
+</blockquote>
+<h2 id="互斥量"><a href="#互斥量" class="headerlink" title="互斥量"></a>互斥量</h2><p>递归获取信号量时可能出现死锁的情况：</p>
+<ul>
+<li>信号量用完：</li>
+<li>阻塞 vs 死锁：<blockquote>
+<p>单次获取信号量且信号量不可用，任务会进入阻塞状态，此时系统能够恢复正常运行。然而，如果任务递归获取信号量，并且没有释放信号量，导致信号量完全用尽，那么任务自身将无法继续执行，且也无法释放之前获取的信号量，这就形成了死锁。此时，没有其他任务可以释放信号量，系统无法恢复，导致死锁。</p>
+</blockquote>
+</li>
+</ul>
+<p>使用临界区资源的方法：<br>获取并释放信号量<br>xSemaphoreTake（）xSemaphoreGive（）<br>挂起任务调度器 vTaskSuspendAll();xTaskResumeAll();<br> 禁用中断<br> taskENTER_CRITICAL()和          taskEXIT_CRITICAL()</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/10/17/message_queue/" data-id="cm8iaxafg0005j9pt2jnj007d" data-title="文章标题" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/11/15/wsl_network_error/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          WSL2的网络问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/05/17/task1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">FreeRTOS中的任务实现</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/03/17/epoll/">文章标题</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/15/Qt_in_VS/">文章标题</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/15/Singleton/">懒汉模式与饿汉模式</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/15/error_in_VS/">VS上qt配置的若干问题</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/15/wsl_network_error/">WSL2的网络问题</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
